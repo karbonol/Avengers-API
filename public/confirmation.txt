@@ -1,0 +1,3 @@
+are you sure?
+Do you want to delete all data?
+You may want to authorize permissions to delete all continue?
