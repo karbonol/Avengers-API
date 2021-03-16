@@ -6,7 +6,7 @@ const port = 5000//process.env.port || 3000
 const app = express()
 const cors = require('cors')
 const avengersRoutes = require('./avengers')
-
+const usersRoute = require('./users')
 app.use(cors())
 app.use(express.json())
 //app.use(logging)
@@ -18,5 +18,6 @@ mongoose.connect("mongodb://localhost/avengersDB",{useNewUrlParser:true,useUnifi
 })
 
 app.use('/avengers/',avengersRoutes)
+app.use('/users/',usersRoute)
 app.use('/',home)
 app.listen(port,()=>console.log('server started on '+port))

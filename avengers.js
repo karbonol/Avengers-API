@@ -1,5 +1,4 @@
 const express = require('express')
-const { Mongoose } = require('mongoose')
 const Avenger = require('./models/Avenger')
 const router = express.Router()
 const authKey = '1234'
