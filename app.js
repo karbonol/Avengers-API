@@ -2,7 +2,7 @@ const express = require('express')
 const logging = require('./middleware/logging')
 const functions =  require ('./functionality')
 const home = require('./home')
-const port = process.env.port || 5000
+var port =  5000
 const app = express()
 const cors = require('cors')
 const avengersRoutes = require('./avengers')
@@ -12,6 +12,9 @@ app.use(express.json())
 //app.use(logging)
 const mongoose = require('mongoose')
 const enviorement = process.env.NODE_ENV
+
+if(process.env.port)
+    port = process.env.port
 mongoose.connect(
     enviorement == 'development'?"mongodb://localhost/avengersDB"
     :"mongodb+srv://root:root@cluster0.pxyy1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
