@@ -13,8 +13,8 @@ app.use(express.json())
 const mongoose = require('mongoose')
 const enviorement = process.env.NODE_ENV
 
-if(process.env.port)
-    port = process.env.port
+if(process.env.PORT)
+    port = process.env.PORT
 mongoose.connect(
     enviorement == 'development'?"mongodb://localhost/avengersDB"
     :"mongodb+srv://root:root@cluster0.pxyy1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
