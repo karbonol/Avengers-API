@@ -1,5 +1,5 @@
 const router = require('express').Router()
-router.get('/',(req,res)=>{
+const homeRoute = (req,res)=>{
     res.send('welcome to avengers')
-})
-module.exports = router
+}
+module.exports = homeRoute
