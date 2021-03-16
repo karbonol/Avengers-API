@@ -8,6 +8,8 @@ router.post('/',async (req,res) =>{
     try{    
         if(typeof req.body.password == 'string' ){
             req.body.password = await bycrypt.hash(req.body.password,await bycrypt.genSalt())
+        }else{
+            return res.status(400).send({message:"Please sent a valid password field as string"})
         }
          const newUser = await User(req.body).save()
     newUser.password = undefined     

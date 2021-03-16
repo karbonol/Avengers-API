@@ -6,25 +6,27 @@ var port =  5000
 const app = express()
 const cors = require('cors')
 const avengersRoutes = require('./avengers')
+const authRoute = require('./auth')
 const usersRoute = require('./users')
 app.use(cors())
 app.use(express.json())
 //app.use(logging)
 const mongoose = require('mongoose')
-const enviorement = process.env.NODE_ENV
+const enviorement = process.env.HEROKU
 
 if(process.env.PORT)
     port = process.env.PORT
+console.log(`enviorement is heroku- ${enviorement}`)    
 mongoose.connect(
-    enviorement == 'development'?"mongodb://localhost/avengersDB"
-    :"mongodb+srv://root:root@cluster0.pxyy1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    enviorement? "mongodb+srv://root:root@cluster0.pxyy1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" :
+    "mongodb://localhost/avengersDB"
     ,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
-    console.log('database connected')
+    console.log('database connected '+mongoose.connection.host)
 }).catch((err)=>{
     console.log('error has occured when connecting database '+err)
 })
-
-app.use('/avengers/',avengersRoutes)
+app.use('/auth/',authRoute)
 app.use('/users/',usersRoute)
+app.use('/avengers/',avengersRoutes)
 app.use('/',home)
 app.listen(port,()=>console.log('server started on '+port))

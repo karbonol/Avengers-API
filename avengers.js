@@ -1,13 +1,29 @@
 const express = require('express')
 const Avenger = require('./models/Avenger')
+const User =  require('./models/User')
 const router = express.Router()
-const authKey = '1234'
+const jwt = require('jsonwebtoken')
+const config = require('./config')
 var avengers = [
     {id:1,name:'Iron man'},
     {id:2,name:'Captain America'},
     {id:3,name:'Thor'}
 ]
-
+router.use(async (req,res,next)=>{
+    const token = req.headers.token
+    if (!token)
+        return res.status(401).send({message:"Invalid token sent!"}) 
+    try{
+        jwt.verify(token,config.SECRET_KEY)
+    }catch(e){
+        return res.status(401).send({message:"Invalid token sent!"}) 
+    }
+    const authUser = await User.findOne({email:jwt.decode(token).email}) 
+    if(authUser)
+        return next()
+    else
+        res.status(401).send({message:"Unauthorized user"})
+})
 router.get('/',async (req,res)=>{
     res.send(await Avenger.find())
 })
