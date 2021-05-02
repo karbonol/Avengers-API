@@ -15,13 +15,11 @@ const mongoose = require('mongoose')
 const enviorement = process.env.HEROKU
 
 if(process.env.PORT)
-    port = process.env.PORT
-console.log(`enviorement is heroku- ${enviorement}`)    
+    port = process.env.PORT  
 mongoose.connect(
     enviorement? "mongodb+srv://root:root@cluster0.pxyy1.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" :
     "mongodb://localhost/avengersDB"
     ,{useNewUrlParser:true,useUnifiedTopology:true}).then(()=>{
-    console.log('database connected '+mongoose.connection.host)
 }).catch((err)=>{
     console.log('error has occured when connecting database '+err)
 })

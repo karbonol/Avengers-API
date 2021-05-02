@@ -4,11 +4,7 @@ const User =  require('./models/User')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
 const config = require('./config')
-var avengers = [
-    {id:1,name:'Iron man'},
-    {id:2,name:'Captain America'},
-    {id:3,name:'Thor'}
-]
+
 router.use(async (req,res,next)=>{
     const token = req.headers.token
     if (!token)
